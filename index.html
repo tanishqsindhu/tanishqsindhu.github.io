@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+  <link rel="shortcut icon" type="image/png" href="list.png" />
+  <style>
+      @import url('https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap');
+
+*{
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body{
+  font-family: 'Fredoka One', cursive;
+  background-image: linear-gradient(to right,#a50044, #004d98, #a50044, #004d98);
+  color: #fff;
+}
+
+.container{
+  width: 1280px;
+  margin: auto;
+}
+
+#header{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  min-height: 70px;
+  padding: 0 20px;
+}
+
+#header h2{font-size: 2rem;}
+
+.user_input{
+  margin-top: 2px;
+  width: 350px;
+  text-align: center;
+  
+}
+
+.user_input input{
+  width: 75%;
+  outline: none;
+  padding: 8px;
+  border: 1px solid lightgray;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+  -webkit-transition: all 0.30s ease-in-out;
+  -moz-transition: all 0.30s ease-in-out;
+  -ms-transition: all 0.30s ease-in-out;
+  -o-transition: all 0.30s ease-in-out;
+  transition: all 0.30s ease-in-out;
+  background-color: black;
+  color: #fff;
+}
+
+.user_input input:focus{
+  box-shadow: 0 0 5px #004d98;
+  border: 1px solid #004d98;
+}
+
+.user_input button{
+  cursor: pointer;
+  padding: 8px;
+  width: fit-content;
+  color: black;
+  transition: 1s;
+  outline: none;
+  background-color: darkgrey;
+  border: 1px solid lightgray;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+
+.user-input button:hover{
+  background-color: transparent;
+  color: white;
+}
+
+#to_do_list{
+  width: 500px;
+  margin: auto;
+}
+
+.item{
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  height: auto;
+  border-radius: 2px;
+  padding: 1rem;
+  color: #454545;
+  margin-top:10px;
+  font-size: 1rem;
+  background-color: white;
+  border: 1px solid lightgray;
+  text-transform: uppercase;
+  -webkit-transition: all 0.30s ease-in-out;
+  -moz-transition: all 0.30s ease-in-out;
+  -ms-transition: all 0.30s ease-in-out;
+  -o-transition: all 0.30s ease-in-out;
+  transition: all 0.30s ease-in-out;
+}
+
+.item:hover{
+  box-shadow: 0 0 20px #E22865;
+  border: 1px solid #E22865;
+}
+
+.item i{
+  cursor: pointer;
+  margin: 0 5px;
+}
+  </style>
+  <title>To-do List</title>
+</head>
+<body>
+
+  <main>
+    <header>
+      <div class="container">
+        <div id="header">
+          <h2><i class="fas fa-clipboard-check"></i> To-do List</h2>
+          <div class="user_input">
+            <input type="text" id="input" placeholder="I need to..."><button id="add_item">Add</button>
+          </div>
+        </div>
+      </div>
+    </header>
+    
+    <section>
+      <div class="container">
+        <div id="to_do_list"></div>
+      </div>
+    </section>
+  </main>  
+
+  <script>
+      document.querySelector("#input").addEventListener("keydown", (event) => {
+  if(event.key === "Enter"){
+    const input = document.querySelector("#input");
+    addItem(input.value);
+  }
+    
+});
+
+document.querySelector("#add_item").addEventListener("click", () => {
+  const input = document.querySelector("#input");
+  addItem(input.value);
+});
+
+addItem = (input) => {
+  const item = document.createElement("div");
+  const div = document.createElement("div");
+  const checkIcon = document.createElement("i");
+  const trashIcon = document.createElement("i");
+  const text = document.createElement("p");
+
+  item.className = "item";
+  text.textContent = input;
+
+  checkIcon.className = "fas fa-check-square";
+  checkIcon.style.color = "lightgray";
+  checkIcon.addEventListener("click", () => {
+    checkIcon.style.color = "darkgreen";
+    item.style.backgroundColor = "limegreen";
+  })
+  div.appendChild(checkIcon);
+
+  trashIcon.className = "far fa-trash-alt";
+  trashIcon.style.color = "darkgray";
+  trashIcon.addEventListener("click", () => {
+    item.remove();
+  })
+  div.appendChild(trashIcon);
+
+  item.appendChild(text);
+  item.appendChild(div);
+
+  document.querySelector("#to_do_list").appendChild(item);
+  document.querySelector("#input").value = "";
+}
+  </script>
+</body>
+
+</html>
